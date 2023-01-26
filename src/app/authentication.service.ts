@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Router} from "@angular/router";
+import {LoginResponse} from "./model/login-response";
+import {UserService} from "./user.service";
+import {LoginRequest} from "./model/login-request";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'

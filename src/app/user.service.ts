@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
 import jwt_decode from 'jwt-decode';
+import {LoginResponse} from "./model/login-response";
+import {map} from "rxjs/operators";
+import {LoginRequest} from "./model/login-request";
 
 
 @Injectable({
