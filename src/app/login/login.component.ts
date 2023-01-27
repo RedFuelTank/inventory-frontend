@@ -2,6 +2,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../authentication.service";
+import {LoginResponse} from "../model/login-response";
+import {LoginRequest} from "../model/login-request";
 
 @Component({
   selector: 'app-login',
@@ -30,4 +32,17 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/home"
   }
 
+  public onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+    console.log(this.loginForm.value)
+    const {username, password} = this.loginForm.value
+    let loginRequest = new LoginRequest(username, password);
+    console.log(loginRequest)
+
+    this.authenticationService.login(loginRequest).subscribe((response: LoginResponse) => {
+      this.router.navigate([this.returnUrl])
+    });
+  }
 }
