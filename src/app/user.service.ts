@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode';
 import {LoginResponse} from "./model/login-response";
 import {map} from "rxjs/operators";
 import {LoginRequest} from "./model/login-request";
+import {RegistrationForm} from "./model/registration-form";
 
 
 @Injectable({
@@ -28,11 +29,20 @@ export class UserService {
     }));
   }
 
+
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);
     } catch(Error) {
       return null;
     }
+  }
+
+  register(registrationForm: RegistrationForm) : Observable<any>{
+    return this.http.post<any>(UserService.REST_API_SERVER + "/user/registration",
+      registrationForm,
+      {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    })
   }
 }

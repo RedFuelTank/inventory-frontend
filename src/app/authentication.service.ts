@@ -5,6 +5,7 @@ import {LoginResponse} from "./model/login-response";
 import {UserService} from "./user.service";
 import {LoginRequest} from "./model/login-request";
 import {map} from "rxjs/operators";
+import {RegistrationForm} from "./model/registration-form";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class AuthenticationService {
     localStorage.removeItem("currentUser")
     this.currentUserSubject.next(undefined);
     this.router.navigate(["/home"])
+  }
+
+  register(registrationFormHolder: RegistrationForm) {
+    return this.userService.register(registrationFormHolder)
   }
 }
