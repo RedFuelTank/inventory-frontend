@@ -15,7 +15,7 @@
           <div class="file">
             <a>
               <div class="hover">
-                <button type="button" class="btn btn-icon btn-danger">
+                <button type="button" class="btn btn-icon btn-danger" (click)="deleteDirectory(directory.id)">
                   <i class="fa fa-trash"></i>
                 </button>
               </div>
@@ -34,7 +34,7 @@
           <div class="file">
             <a>
               <div class="hover">
-                <button type="button" class="btn btn-icon btn-danger">
+                <button type="button" class="btn btn-icon btn-danger" (click)="deleteItem(item.id)">
                   <i class="fa fa-trash"></i>
                 </button>
               </div>

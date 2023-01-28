@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DirectoryData} from "../model/directory-data";
 import {ItemData} from "../model/item-data";
 import {DirectoryService} from "../directory.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-items',
@@ -9,23 +10,25 @@ import {DirectoryService} from "../directory.service";
   styleUrls: ['./user-items.component.scss']
 })
 export class UserItemsComponent implements OnInit {
-  public directoriesOnPage: DirectoryData[] = []
-  public itemsOnPage: ItemData[] = []
+  public directoriesOnPage!: DirectoryData[]
+  public itemsOnPage!: ItemData[]
 
   public userUsername!: string
 
-  constructor(private service: DirectoryService) {
+  constructor(private service: DirectoryService, private route: Router) {
     const currentUserString = localStorage.getItem("currentUser");
     const currentUserJson = currentUserString ? JSON.parse(currentUserString) : undefined;
     this.userUsername = currentUserJson.username
   }
 
   ngOnInit(): void {
-    console.log("Start initialization")
     this.loadPage()
   }
 
   loadPage() {
+    this.directoriesOnPage = []
+    this.itemsOnPage = []
+
     this.service.getRootDirectoryContent(this.userUsername).subscribe(page => {
       for (let data of page.content) {
         if (data.type === "DIRECTORY") {
@@ -44,5 +47,15 @@ export class UserItemsComponent implements OnInit {
 
   addButtonPressed() {
     console.log("Pushed")
+  }
+
+  deleteItem(id: number) {
+    this.service.deleteItem(id, this.userUsername);
+    this.route.navigate(["items"])
+  }
+
+  deleteDirectory(id: number) {
+    this.service.deleteDirectory(id, this.userUsername);
+    this.route.navigate(["items"])
   }
 }

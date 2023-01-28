@@ -10,6 +10,14 @@ export class DirectoryService {
   constructor(private http: HttpClient) { }
 
   getRootDirectoryContent(username : String) : Observable<any> {
-    return this.http.get<any>(DirectoryService.REST_API_SERVER + "/" + username + "/directory")
+    return this.http.get<any>(DirectoryService.REST_API_SERVER + `/${username}/directory`)
+  }
+
+  public deleteItem(id: number, username: string) {
+    this.http.delete(DirectoryService.REST_API_SERVER + `/${username}/item/${id}`).subscribe();
+  }
+
+  deleteDirectory(id: number, username: string) {
+    this.http.delete(DirectoryService.REST_API_SERVER + `/${username}/directory/${id}`).subscribe();
   }
 }
