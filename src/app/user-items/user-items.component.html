@@ -1,0 +1,54 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div class="input-group rounded">
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <span class="input-group-text border-0" id="search-addon">
+    <img src="assets/add_plus_icon.png" width="25" height="25" (click)="addButtonPressed()">
+  </span>
+</div>
+
+<div id="main-content" class="file_manager">
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-lg-3 col-md-4 col-sm-12" *ngFor="let directory of directoriesOnPage">
+        <div class="card">
+          <div class="file">
+            <a>
+              <div class="hover">
+                <button type="button" class="btn btn-icon btn-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+              <div class="icon">
+                <img src="assets/folder_icon.png" height="150" width="150">
+              </div>
+              <div class="file-name">
+                <p class="m-b-5 text-muted">{{directory.name}}</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-12" *ngFor="let item of itemsOnPage">
+        <div class="card">
+          <div class="file">
+            <a>
+              <div class="hover">
+                <button type="button" class="btn btn-icon btn-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+              <div class="icon">
+                <img src="../../assets/object_cube.png" width="150" height="150">
+              </div>
+              <div class="file-name">
+                <p class="m-b-5 text-muted">{{item.name}}</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
