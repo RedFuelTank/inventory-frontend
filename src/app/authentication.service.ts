@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {LoginResponse} from "./model/login-response";
+import {Authority, LoginResponse} from "./model/login-response";
 import {UserService} from "./user.service";
 import {LoginRequest} from "./model/login-request";
 import {map} from "rxjs/operators";
-import {RegistrationForm} from "./model/registration-form";
+import {BusinessRegistrationForm} from "./model/business-registration-form";
+import {RepresentativeRegistrationForm} from "./model/representative-registration-form";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,18 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  login(loginRequest: LoginRequest) : Observable<LoginResponse>{
-    return this.userService.login(loginRequest).pipe(
+  loginAsRepresentative(loginRequest: LoginRequest) : Observable<LoginResponse>{
+    return this.userService.loginAsRepresentative(loginRequest).pipe(
+      map((response : LoginResponse) => {
+        localStorage.setItem("currentUser", JSON.stringify(response));
+        this.currentUserSubject.next(response);
+        return response;
+      })
+    )
+  }
+
+  loginAsBusiness(loginRequest: LoginRequest) : Observable<LoginResponse>{
+    return this.userService.loginAsBusiness(loginRequest).pipe(
       map((response : LoginResponse) => {
         localStorage.setItem("currentUser", JSON.stringify(response));
         this.currentUserSubject.next(response);
@@ -41,7 +52,21 @@ export class AuthenticationService {
     this.router.navigate(["/home"])
   }
 
-  register(registrationFormHolder: RegistrationForm) {
-    return this.userService.register(registrationFormHolder)
+  registerRepresentative(registrationFormHolder: RepresentativeRegistrationForm) {
+    return this.userService.registerRepresentative(registrationFormHolder)
+  }
+
+  registerBusiness(registrationFormHolder: BusinessRegistrationForm) {
+    return this.userService.registerBusiness(registrationFormHolder)
+  }
+
+  isBusiness() {
+    return this.currentUserSubject ? this.currentUserSubject.value?.authority.includes(Authority.Business)
+      : false;
+  }
+
+  isRepresentative() {
+    return this.currentUserSubject ? this.currentUserSubject.value?.authority.includes(Authority.Representative)
+      : false;
   }
 }

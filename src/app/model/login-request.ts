@@ -1,9 +1,9 @@
 export class LoginRequest {
-  public username: string;
+  public name: string;
   public password: string;
 
   constructor(username: string, password: string) {
-    this.username = username;
+    this.name = username;
     this.password = password;
   }
 }

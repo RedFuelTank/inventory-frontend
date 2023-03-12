@@ -17,19 +17,6 @@
           May not be empty
         </div>
       </div>
-      <div class="form-group top-buffer-10">
-        <label>User type</label>
-        <div class="form-group">
-          <select class="form-control select2 select2-hidden-accessible"
-                  style="width: 100%;"
-                  tabindex="-1"
-                  id="authority" formControlName="authority" name="authority"
-                  aria-hidden="true">
-            <option selected="selected">Private client</option>
-            <option>Business client</option>
-          </select>
-        </div> <!-- /.form-group -->
-      </div>
 
       <br>
       <button [disabled]="registrationForm.invalid" type="submit"

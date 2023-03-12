@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DirectoryService} from "../directory.service";
-import {StorageData} from "../model/storage-data";
 import {LoginResponse} from "../model/login-response";
 import {ItemData} from "../model/item-data";
 

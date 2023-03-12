@@ -20,4 +20,12 @@ export class AppComponent {
   logout() {
     this.authenticationService.logout()
   }
+
+  isBusiness() {
+    return this.authenticationService.isBusiness()
+  }
+
+  isRepresentative() {
+    return this.authenticationService.isRepresentative()
+  }
 }

@@ -1,9 +1,16 @@
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
-<div class="input-group rounded">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+<div class="input-group rounded mb-3">
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+         aria-describedby="search-addon"/>
   <span class="input-group-text border-0" id="search-addon">
-    <img src="assets/add_plus_icon.png" width="25" height="25" (click)="addButtonPressed()">
+    <div class="dropdown">
+      <img src="assets/add_plus_icon.png" width="25" height="25" data-bs-toggle="dropdown" aria-expanded="false">
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" [routerLink]="['/creation-storage', currentStorageId]">Storage</a></li>
+        <li><a class="dropdown-item" [routerLink]="['/creation-item', currentStorageId]">Item</a></li>
+      </ul>
+    </div>
   </span>
 </div>
 
@@ -19,8 +26,8 @@
                   <i class="fa fa-trash"></i>
                 </button>
               </div>
-              <div class="icon">
-                <img src="assets/folder_icon.png" height="150" width="150">
+              <div class="icon" (click)="openStorage(directory.id)">
+                <img src="assets/storage.webp" height="150" width="150">
               </div>
               <div class="file-name">
                 <p class="m-b-5 text-muted">{{directory.name}}</p>
@@ -39,7 +46,7 @@
                 </button>
               </div>
               <div class="icon">
-                <img src="../../assets/object_cube.png" width="150" height="150">
+                <img src="{{'../../assets/object_cube.png' }}" width="150" height="150">
               </div>
               <div class="file-name">
                 <p class="m-b-5 text-muted">{{item.name}}</p>
@@ -49,6 +56,10 @@
         </div>
       </div>
     </div>
-
+    <div class="d-flex justify-content-center top-buffer-20">
+      <ngb-pagination [collectionSize]="totalElements" [(page)]="currentPage"
+                      [pageSize]="size" [maxSize]="maxPagesRange" (pageChange)="loadPage(currentStorageId)">
+      </ngb-pagination>
+    </div>
   </div>
 </div>
